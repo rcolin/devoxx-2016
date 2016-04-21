@@ -1,0 +1,31 @@
+
+
+API Date de SE8 :
+-----------------------------
+JPA -> DATE -> Instance
+Mise en place de converter... 
+interface AttriutConverter  
+
+//add comment
+private  @NonNull List<Personn> ...
+
+private  @NonNull List<@NonNul lPersonn> ...
+
+String concat 
+------------------------------
+StringJoiner sj = new StrirngJoiner(", ")
+sj.add("truc").add("machin");
+sj.toString();
+
+Srring s = String.join(", ", "a", "b");
+
+Collectors.joining() pour encadrer avec un cractère un string 
+
+Sream
+-------------------------------
+IntStream stream = s.chars;
+
+
+CompletableFuture
+-------------------------------
+

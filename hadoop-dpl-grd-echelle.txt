@@ -1,0 +1,41 @@
+CRITEO :
+--------
+
+construire un cluster Hadoop
+il faut des espaces disponibles
+Hadoop a horreur des petits fichiers
+Il lui faut assez d'espace libre (disque et RAM) pour bien fonctionner !
+le mode archive d'hadoop permet de regrouper les petits fichiers pour diminuer les I/Os
+100K de jobs par jour sur la plateforme !
+Securiser (Kerberos) logger / car vite un peut avoir des users qui prennent les ressources
+Ils ont 4 queue pour gérer la prod / int / dev / urgent
+tout doit être industrialiser pour patcher les machines
+On doit avoir comme compétence : java / linux / DB / réseaux / securité
+2661 noeud
+520 serveurs en france 
+Infra world wide 
+38 peta octet
+Réseau POD (facebook / azure)
+Mise en place d'une automatisation des benchs dès le début pour monitoer l'infra
+L'enfer des migration : déplacer les utilisateurs d'une cluster à un nouveau update etc...!
+Ils ont fait pas mal 
+
+comment on gère la data location et les processus ...
+
+
+Question : les petites données c'est quoi pour vous !
+Taile de bloque vs taile du fichier :
+chez criteo : 256 M un bloque / 1 ficher est à partir de 64 M (cube 3M)
+
+Startégie : 
+    - fédération des nodes (outil de hadoop ne gère pas bien)
+    - on segmente les clusters (stratégie mise en place en de société américaine)
+
+Sauvergade des données :
+    - Industrialisé en CHEF
+    - SAN 2,5 PETA données critiques dans une 3 ieme data center
+
+Solution MAPR pour mettre a la place de HDFS
+  
+    
+            

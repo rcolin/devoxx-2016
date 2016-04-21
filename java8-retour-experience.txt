@@ -1,0 +1,10 @@
+JMDOUDOUX
+Optional : forcer est ce qu'on a un obet en entrée ou pas...
+            elle n'est pas sériabilizable
+Arrays.parallelXXX (sort)
+
+STREAM : 
+    utlisation de PEEK pour faire des points d'arrêt dans un stream
+    utiliser les InStream / LongStrem et DoubleStream au lien de stream pour gérer des collections de type int long et double
+    
+JMH : super outil de bench
