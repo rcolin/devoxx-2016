@@ -1,0 +1,17 @@
+Tokenizer filter
+Filter
+
+pipeline -> applique des filtres
+
+lucnene arrive à vite trier des données
+chaque terme est indexé puis il y a une correspondance pour savoir dans quel document se trouve l'info
+
+Bit PACKING : luncenne permet de faire du delat encoding, cela permet de ne mettre en bit ce qui est nécessaire !
+* on peut alors s'authoriser à dupliquer car l'information sauvegardée est tres efficace
+* le fichier des index est dans Segment ! Fichier umutable
+Lucenne fait des merges en background sur plusieurs tableaux : compaction
+LeapFrog : permet de se promener dans plusieurs colonne de tableau pour retrouver l'information
+
+
+
+    
