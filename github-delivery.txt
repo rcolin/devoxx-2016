@@ -1,0 +1,23 @@
++ github a des APIs pour pouvoir déployer
++ github prone la simplicité sur le branching (github flow)
++ ils travaillent a base de pull request
++ 70 ieme site modiale
++ le but est de passer en prod et de voir ce qui se passe :)
++ hubot : robot (hu-bot), le bot déploit
++ ils ont un systeme de queue de déploiement avec validation en production
++ chacun prend sont tour, si le code est bon alors le developpeur push sur la master qui est la prod
++ le bot peut déployer sur un env la branche de feature
++ le pull request est automatiquement udpaté si déploiement OK
++ on peut rajouter des checks (nouvelle fonctionnalité depuis un mois) obligatoire ou non.
++ l'idée est de ne pas aller voir le jenkins mais de rester sur github
++ ils ont un janky (un jenkins customsié)
++ ils peuvent déployer que sur certains front end (certains serveur de prod)
+ pour analyser des problèmes éventuels de prod.
++ si tout se passe bien alors on déploie partout en prod
++ il ont un outil de monitoring de la production pour connaitre les personnes qui ont poussés
+en production avec photo d'avatar. (idée à reprendre ;))
++ le bot donne des graphes de la prod sur les temps de réponse sur une prériode donnée
++ le bot lors de pb va rappatrier les logs,  des graphes de perf et va créer une issue dedans
++ la securité de certaines commande se fait avec envoie de code par sms. 
++ pas de besoin de communication pour déployer (!) (communication asynchrone pour ne pas perdre de temps)
++ hubot peut se télécharger (node.js / redis)
