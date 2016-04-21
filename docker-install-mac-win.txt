@@ -1,0 +1,27 @@
++ docker for mac or windows
++ le but est de na pas avoir des VMs pour installer et lancer docker
++ il faut s'inscrire a la beta pour avoir un tocken beta
+
+Sous MAC :
+        + on abandonne boot2 docker
+        + installer un simple dmg file
+        + docker est acessible depuis l'invite de commande sous MAC
+        + une fois lancé l'image docker elle est accessible depuis : docker.local:8080
+        + on peut sizer la mémoire
+        + check update au démarrage
+        + prise en compte de VPN
+        + ils ont remplacé la VM (virual box Oracle) par l'utilisation de l'hyperviseur de MAC OS (exite)
+        + la gestion du montage des fichiers a été réécrite et simplifiée
+        + on peut lancer des images ARM (raspberry pi), moby va lancer à travers QEMU ARM.(sous mac et windows)
+        
++ Sous windows, Docker utilise HyperV
+
++ le but est de faire fonctionner les containers linux sur Windows et MAC
+
+WINDOWS :
+    + windows travaille en // de ce projet pour déploye nativement des containers Windows (et uniquement Windows)
+    + installer aussi sous windows
+    + docker accessible depuis powershell & cmd
+    + le file sharing foncltionne aussi
+    + dans l'iHM on peut mapper avec ajout des credential (mot de passe)
+    + on utilise les PATH Windows (et non les paths pseudo cygwin /C/...)
