@@ -1,0 +1,42 @@
+prez OCTO : 
+
+M. Conway : l'organization design le system
+est ce que le système de versionning/branching colle aux diffrentes organization
+
+Trunck Base pour commencer :
+    la startégie de versionning est drivée par un instant T l'orga d'une équipe.
+    Qd on commence, on a peu de branche (setup project)
+    
+    Qd l'équipe grossi on a besoin de faire des branche
+    
+    On va organiser en team branche : tendance de faire des cycle longs ! Merge délicat !
+    features branche : tendance a faire des branches courtes avec des équipes qui se redéploie autrement
+    
+    Modèle git Flow : réunification des bonnes pratiques features branch + sas par branche de role  / int / hostfixe / dev
+    avec un release master qui coordonne. (importance de la communication dans cette stratégie)
+    cela ressemble à un KAMBAN !
+    
+    la branche de dev et release branch 
+    
+    Github Flow (branch features + trunck) : car on fait du continuous delivery / pas compatible dans les clients lourds avec validation longue 
+    (ex : apple doit valider les apps mobiles, on est dans un sas)  
+    
+    Ce qui est complexe c'est le merge ...
+    
+    feature toggle: faire delivré mais pas activé
+    
+    MOB Programming (pair programming) : évite le nombre de branche
+    
+    octipus pattern : outil de merge auto entre bracnhe feature et branche relase
+    
+    Les dérives de bracnhes sont toujours couteuses par la suite !
+    l'équipe d'intégration (spécial mergeur) c'est une horreur !
+    
+    Ils n'ont pas trouvés de stratégie de branche qui repondent à toutes les organisations  
+    
+    
+       
+    
+
+
+      
