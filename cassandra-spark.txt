@@ -1,0 +1,101 @@
+POC cassandra - spark
+ 
+- setup reseau
+
+singapour : 10.3.1.X
+masque sous reseau : 255.0.0.0
+test de ping 10.1.1.2
+
+- théorie cassandra
+
+But du produit : scalable et haute disponibilité
+Base de données distribuée
+Ajouter sans limite des données distribuées
+fait pour les grosses charges d'écriture
+la notion de datacenter
+les noeuds ont tous le même rôle (master less)
+on partionne les données et on réplique les données sur plusieurs noeuds
+on peut régler le niveau de consistance (perf...)
+la bante passante d'un cluster cassandra est linaire par rapport aux nombres de machines
+chaque table a une clef primaire
+une fonction associéee a une valuer de clef primaire à un Hash
+chaque noeud du cluster prend en charge un "tockern range" 
+
+chaque ligne d'une table est stockée sur le nombre de réplica. un ligne est hashé sur un noeud et répliqué.
+pas de join
+pas de possibilité d'influencer géographiquement le stockage sur un noeud.
+niveau de consistance :
+    ONE : lire ou ecrire sur un seul noeud
+    LOCAL_ONE : dans le data center uniquement mais la réplication est faite plus tard dans l'autre datacneter (pour éviter les latences des données)
+    QUORUM : majorté des seveurs est eu les données pour considéré que les données ont été propagée
+    LOCAL_QUORUM : sur tous les noeuds du data center 
+
+- setup cassandra
+
+
+
+
+- data :
+
+cqlsh est l'interface interactive en ligne de commande permettant d'executer des requêtes CQL sur le cluster 
+./bin/cqlsh 10.3.1.2  
+
+créer un keyspace avec stratégie de réplication sur les noeuds
+on va sur le keyspace : use devoxx
+
+puis on créer la table
+
+le requêtage se fait uniquement sur les clefs primaires
+
+Ensuite :
+use devoxx;  
+select * from attendee;  
+insert into attendee(email,first_name,last_name) values ('{yourEmail}','{yourFirstName}','{yourLastName}'); 
+
+//tout est basé sur les clefs primaires
+insert into attendee(email,first_name,last_name) values ('remi@gmail.com','Remi','COL');
+delete from  
+select * from attendee where email='remi@gmail.com';
+
+
+- run cassandra
+
+./bin/cassandra -f
+
+- monitorer les noeuds 
+
+nodetool est l'interface en ligne de commande permettant de gérer le cluster Voici quelques commandes utiles
+./bin/nodetool help   : aide
+./bin/nodetool status   : statut du cluster
+./bin/nodetool info   : information sur le noeud
+
+- théorie spark
+
+faire des opérations sur des données très volumineuse
+écris en Scala mais API Scala, java et python.
+programmation fonctionnelle :
+RDD : Resilient Distributed Dataset
+Sparck construit un DAG à partir des opérations du RDD.
+ls opérations sont lasy (comme pour les strema en java 8) 
+
+Transformation locales : map / filter / flatMap
+Transformtion distribués : groupByKey / reduceByKey
+
+Actions : coolect , count first, take(n), foreach....
+
+Spark permet de faire des opérations en masse sur cassandra et qui ne tiendrait pas sur une machine. 
+
+Spark cassandra connector fait la liaison entre spark et cassandra
+
+Un sparc worker doit être lancé sur chaque machine afin d'avoir des accès locaux sur les données.
+
+on a des opérations intéressantes en spark : 
+    - cassandraTable(keyspace, table)
+    - ...
+    - ...
+    
+pour lancer spark : mettre en référance un nexus...    
+
+- setup spark
+- run spark & cassandra
+
