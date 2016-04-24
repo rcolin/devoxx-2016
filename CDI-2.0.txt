@@ -1,0 +1,30 @@
+release 2.0 prévue pour fin 2016
+CDI 1.2 mis en place dans Java EE 7
+
+systeme de dépendance fortement typé
+gère le cycle de vie
+AOP
+gestion des évenements
+systeme de SPI permet d'étendre
+
+annotation startup
+possibilité de faire du CDI sans containier EE
+Support de la securité
+Async support for event and method invocation
+Obesrvers ordering, better event control
+
+------
+
+Support de java SE pour CDI :
+    facilité de tester
+    utilisation de CDI dans Java SE
+    methode scope session
+
+évenements : 
+    rendre async event
+    ordonner les évenements
+    
+AOP : 
+    
+  
+ 
