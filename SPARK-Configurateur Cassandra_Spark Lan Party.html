@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Configurateur Cassandra/Spark Lan Party</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+        <!-- Custom styles for this template -->
+        <link href="css/starter-template.css" rel="stylesheet" />
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="js/html5shiv.min.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Cassandra/Spark Lan party</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/cassandra">Cassandra</a></li>
+                <li class="active"><a href="/spark">Spark</a></li>
+                <li><a href="/archive">Archive</a></li>
+                <li><a href="/documentation">Documentation</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1>Installation et configuration de Spark</h1>
+    </div>
+
+    
+    
+    <div>
+        <h4>1. Télécharge le binaire Spark :</h4>
+        Il y a deux façons de récupérer le binaire Spark :
+        <ul>
+            <li>Sur la clé USB distribuée au début de la Lan Party</li>
+            <li>Depuis ce lien : <a href="archive/spark-1.6.1-bin-hadoop2.6.tgz"><button class="btn btn-primary btm-sm"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> spark-1.6.1-bin-hadoop2.6.tgz</button></a></li>
+        </ul>
+    </div>
+    <hr />
+    <div>
+    <div>
+        <h4>3. Décompresse le binaire dans un répertoire de ton choix (SPARK_HOME)</h4>
+    </div>
+    <hr />
+        <h4>4. Configuration Spark</h4>
+        Variables d'environement : crée un fichier <code>SPARK_HOME/conf/spark-env.sh</code> avec le contenu suivant :
+        <div class="code-wrapper">
+            <pre id="spark_env">export SPARK_LOCAL_IP=10.3.1.2</pre>
+            <button id="export_spark_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#spark_env" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+    <hr />
+    <div>
+        <h4>4. Démarre Spark (slave)</h4>
+        <div class="alert alert-warning left">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Attends le Go d'un membre de l'équipe! <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        </div>
+        <div>
+            Démarre ton noeud spark (spark slave) :
+            <div class="code-wrapper">
+                <pre id="start_spark">sbin/start-slave.sh --host 10.3.1.2 --cores 2 --memory 2G spark://10.2.1.0:7077</pre>
+                <button id="start_spark_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#start_spark" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                    <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div>
+        <h4>5. Joue avec Spark</h4>
+
+        <h5>5.1. Spark master</h5>
+        L'interface graphique du Spark Master est consultable à :
+        <a target="_new" href="http://10.2.1.0:8080">http://10.2.1.0:8080</a>
+
+        <h5>5.2. Spark shell</h5>
+        <ul>
+            <li>
+                <div>
+                    Regroupez vous par groupe de 3 ou 4 et lancez Spark Shell :
+                </div>
+                <div class="code-wrapper">
+                    <pre id="start_shell">bin/spark-shell \
+   --executor-memory 2G --total-executor-cores 6 \
+   --master spark://10.2.1.0:7077 \
+   --conf spark.cassandra.connection.host=10.3.1.2 \
+   --conf spark.executor.extraJavaOpts=-Djava.net.preferIPv4Stack=true \
+   --driver-java-options &quot;-Djava.net.preferIPv4Stack=true&quot; \
+   --packages com.datastax.spark:spark-cassandra-connector_2.10:1.6.0-M1 \
+   --repositories http://10.1.1.0:8080/libs \
+   --name 10.3.1.2</pre>
+                    <button id="start_shell_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#start_shell" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </li>
+            <li>
+                <div>
+                    Une fois Spark Shell lancé, afficher l'object SparkContext :
+                </div>
+                <div class="code-wrapper">
+                    <pre id="spark-shell-1">sc.getConf.toDebugString</pre>
+                    <button id="spark-shell-1_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#spark-shell-1" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+                <div>
+                    Lancer un petit calcul distribué :
+                </div>
+                <div class="code-wrapper">
+                    <pre id="spark-shell-2">val rdd = sc.makeRDD((1 to 1000).toArray)</pre>
+                    <button id="spark-shell-2_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#spark-shell-2" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+
+                </div>
+                <div class="code-wrapper">
+                    <pre id="spark-shell-3">val count = rdd.count()</pre>
+                    <button id="spark-shell-3_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#spark-shell-3" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </li>
+            <li>
+                <div>Importer le connecteur cassandra :</div>
+                <div class="code-wrapper">
+                    <pre id="spark-shell-4">
+import com.datastax.spark.connector._
+import com.datastax.spark.connector.cql._
+</pre>
+                    <button id="spark-shell-4_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#spark-shell-4" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </li>
+            <li>
+                <div>Obtenir un RDD depuis une table cassandra :</div>
+                <div class="code-wrapper">
+                    <pre id="spark-shell-5">val attendees = sc.cassandraTable("devoxx", "attendee")</pre>
+                    <button id="spark-shell-5_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#spark-shell-5" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+                <div>Et jouer avec</div>
+                <div class="code-wrapper">
+                    <pre id="spark-shell-6">
+attendees.count
+attendees.take(10).foreach(println(_))</pre>
+                    <button id="spark-shell-6_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#spark-shell-6" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </li>
+            <li>
+                <div>Un exemple plus complet</div>
+                <div class="code-wrapper">
+                    <pre id="spark-shell-8">sc.cassandraTable(&quot;devoxx&quot;, &quot;attendee&quot;).
+   map(row =&gt; row.getString(&quot;email&quot;)).
+   map(email =&gt; email.split(&quot;@&quot;).last).
+   map(domain =&gt; (domain, 1)).
+   reduceByKey(_ + _).
+   saveAsCassandraTable(&quot;devoxx&quot;, &quot;attendees_count_by_domain_10_3_1_2&quot;)
+</pre>
+                    <button id="spark-shell-8_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#spark-shell-8" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </li>
+        </ul>
+        <h5>Voilà!</h5>
+    </div>
+
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script src="js/lan-party.js"></script>
+</body>
+</html>

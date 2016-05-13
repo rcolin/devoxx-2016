@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Configurateur Cassandra/Spark Lan Party</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+        <!-- Custom styles for this template -->
+        <link href="css/starter-template.css" rel="stylesheet" />
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="js/html5shiv.min.js"></script>
+        <script src="js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Cassandra/Spark Lan party</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/cassandra">Cassandra</a></li>
+                <li><a href="/spark">Spark</a></li>
+                <li><a href="/archive">Archive</a></li>
+                <li><a href="/documentation">Documentation</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1>Installation et configuration de Cassandra</h1>
+    </div>
+
+    <div>
+        
+        <h4>1. Télécharge le binaire Cassandra :</h4>
+        Il y a deux façons de récupérer le binaire Cassandra :
+        <ul>
+            <li>Sur la clé USB distribuée au début de la Lan Party</li>
+            <li>Depuis ce lien : <a href="archive/apache-cassandra-3.4-bin.tar.gz"><button class="btn btn-primary btm-sm"><span class="glyphicon glyphicon-download" aria-hidden="true"></span> apache-cassandra-3.4-bin.tar.gz</button></a></li>
+        </ul>
+        <hr />
+        <h4>2. Décompresse le binaire dans un répertoire de ton choix</h4>
+        <hr />
+        <h4>3. Configure Cassandra</h4>
+        <h5>3.1 cassandra.yaml</h5>
+        <div>Edite le <code>./conf/cassandra.yaml</code> et change les propriétés suivantes :</div>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>valeur initiale :</th>
+                <th>à remplacer par : </th>
+                <th>Informations : </th>
+            </tr>
+            </thead>
+            <tr>
+                <td><code>cluster_name: 'Test Cluster'</code></td>
+                <td>
+                    <code id="cluster_name">cluster_name: 'Cassandra Lan Party Cluster'</code>
+                    <button id="cluster_name_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#cluster_name" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+                </td>
+                <td>permet d'éviter qu'un noeud non configuré rejoigne le cluster</td>
+            </tr>
+            <tr>
+                <td><code>- seeds: "127.0.0.1"</code></td>
+                <td>
+                    <code id="seeds">- seeds: "10.1.1.1,10.2.1.1,10.3.1.1"</code>
+                    <button id="seeds_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#seeds" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+                </td>
+                <td>définit la liste des noeuds à contacter initialement pour rejoindre le cluster</td>
+            </tr>
+
+            <tr>
+                <td><code>listen_address: localhost</code></td>
+                <td>
+                    <code id="listen_address">listen_address: 10.3.1.2</code>
+                    <button id="listen_address_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#listen_address" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+                </td>
+                <td>pour accepter les connexions distantes des autres noeuds</td>
+            </tr>
+
+            <tr>
+                <td><code>rpc_address: localhost</code></td>
+                <td>
+                    <code id="rpc_address">rpc_address: 10.3.1.2</code>
+                    <button id="rpc_address_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#rpc_address" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+                </td>
+                <td>pour accepter des connexions clientes</td>
+            </tr>
+
+            <tr>
+                <td><code>endpoint_snitch: SimpleSnitch</code></td>
+                <td>
+                    <code id="endpoint_snitch">endpoint_snitch: RackInferringSnitch</code>
+                    <button id="endpoint_snitch_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#endpoint_snitch" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+                </td>
+                <td>définit la façon dont les noeuds vont se répartir <br /> dans les datacenters sur le cluster (dans notre cas, basé sur les IPs)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <code id="auto_bootstrap">auto_bootstrap: false</code>
+                    <button id="auto_bootstrap_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#auto_bootstrap" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+                    </button>
+                </td>
+                <td>A rajouter à la fin du fichier. Cela indique au noeud de rejoindre le cluster <br /> sans récuperer de données (car le cluster est vide de toute façon) <br /></td>
+            </tr>
+        </table>
+
+        <h5>3.2 log</h5>
+        <div>Edite le <code>./conf/logback.xml</code> et passer le log level à <code>DEBUG</code> pour la sortie console : <code>appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"</code> </div>
+
+        <h5>3.3 Vérification</h5>
+        La configuration de Cassandra est terminée!
+        <div class="alert alert-info left">
+            <span class="glyphicon-fire glyphicon glyphicon-eye-open" aria-hidden="true"></span><span class="glyphicon glyphicon-random" aria-hidden="true"></span> Fait vérifier la configuration par ton voisin!
+        </div>
+    </div>
+    <hr />
+    <h4>4. Démarre Cassandra</h4>
+    <div class="alert alert-warning left">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Attends le Go d'un membre de l'équipe! <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    </div>
+    Voici la commande :
+    <code id="start_cassandra">./bin/cassandra -f</code>
+    <button id="start_cassandra_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#start_cassandra" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    </button>
+    <hr />
+    <h4>5. Joue avec Cassandra</h4>
+
+    <h5>5.1. nodetool</h5>
+    nodetool est l'interface en ligne de commande permettant de gérer le cluster
+
+    Voici quelques commandes utiles
+    <ul>
+        <li>
+            <code id="nodetool_help">./bin/nodetool help</code>
+            <button id="nodetool_help_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#nodetool_help" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+            </button>
+            : aide
+        </li>
+        <li>
+            <code id="nodetool_status">./bin/nodetool status</code>
+            <button id="nodetool_status_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#nodetool_status" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+            </button>
+            : statut du cluster
+        </li>
+        <li>
+            <code id="nodetool_info">./bin/nodetool info</code>
+            <button id="node_tool_info_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#nodetool_info" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+            </button>
+            : information sur le noeud
+        </li>
+    </ul>
+
+    <h5>5.2. cqlsh</h5>
+    cqlsh est l'interface interactive en ligne de commande permettant d'executer des requêtes CQL sur le cluster
+    <br />
+    <code id="cqlsh">./bin/cqlsh 10.3.1.2</code>
+    <button id="cqlsh_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#cqlsh" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+        <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+    </button>
+    <br />
+    Ensuite :
+    <ul>
+        <li>
+            <code id="cqlsh_use">use devoxx;</code>
+            <button id="cqlsh_use_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#cqlsh_use" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+            </button>
+        </li>
+        <li>
+            <code id="cqlsh_use_select">select * from attendee;</code>
+            <button id="cqlsh_use_select_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#cqlsh_use_select" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+            </button>
+        </li>
+        <li>
+            <code id="cqlsh_use_insert">insert into attendee(email,first_name,last_name) values ('{yourEmail}','{yourFirstName}','{yourLastName}');</code>
+            <button id="cqlsh_use_insert_btn" class="btn btn-xs copyable copy-button" data-clipboard-target="#cqlsh_use_insert" title="copy to clipboard" data-toggle="tooltip" data-placement="right">
+                <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
+            </button>
+        </li>
+    </ul>
+
+
+    <h5>Voilà!</h5>
+
+
+
+
+
+
+</div>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script src="js/lan-party.js"></script>
+</body>
+</html>
